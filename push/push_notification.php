@@ -40,13 +40,13 @@
     if(mysqli_num_rows($result) > 0 ){
  
         while ($row = mysqli_fetch_assoc($result)) {
-            $tokens[] = $row['Token'];
+            $tokens[] = $row["Token"];
         }
     }
     
     mysqli_close($conn);
     
-    $myMessage = $_POST['message']; //폼에서 입력한 메세지를 받음
+    $myMessage = $_POST["message"]; //폼에서 입력한 메세지를 받음
     if ($myMessage == ""){
         $myMessage = "새글이 등록되었습니다.";
     }
