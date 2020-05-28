@@ -1,13 +1,15 @@
+<meta charset="UTF-8">
 <?php
 	function send_notification($tokens, $message)
 	{
-	 $url="https://fcm.googleapis.com/fcm/send";
+	 $url='https://fcm.googleapis.com/fcm/send';
 	 $fields= array(
 	 	         'registration_ids' => $tokens,
-            	         'data' => $message
-			);
+            	 'data' => $message
+            );
+            
 	$headers=array(
-		'Authorization:key ='.GOOGLE_API_KEY,
+		         'Authorization:key ='. GOOGLE_API_KEY,
            		 'Content-Type: application/json'
             );
 	
@@ -21,7 +23,7 @@
        	curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fields));
 	 $result = curl_exec($ch);           
        if ($result === FALSE) {
-           die('Curl failed: ' .curl_error($ch));
+           die('Curl failed: ' . curl_error($ch));
        }
        curl_close($ch);
        return $result;
@@ -36,19 +38,19 @@
  
     $result = mysqli_query($conn,$sql);
     $tokens = array();
- 
     if(mysqli_num_rows($result) > 0 ){
- 
+        echo mysqli_num_rows($result);
         while ($row = mysqli_fetch_assoc($result)) {
             $tokens[] = $row["Token"];
+            echo $tokens[0];
         }
     }
     
     mysqli_close($conn);
     
-    $myMessage = $_POST["message"]; //폼에서 입력한 메세지를 받음
+    $myMessage = $_POST['message']; //폼에서 입력한 메세지를 받음
     if ($myMessage == ""){
-        $myMessage = "새글이 등록되었습니다.";
+        $myMessage = "디폴트 메시지.";
     }
  
     $message = array("message" => $myMessage);
